@@ -1,0 +1,41 @@
+.ui-select {
+  display: flex;
+  gap: 7px;
+  cursor: pointer;
+  &_active {
+    text-decoration: line-through;
+    text-decoration-color: #B5B5BA;
+    .ui-select__label {
+      color: #B5B5BA;
+    }
+  }
+  &:hover {
+    .ui-select__span {
+      border: 2px solid #FF4545;
+    }
+  }
+  &__checkbox {
+    display: none;
+  }
+  &__span {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #C4C4C4;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__label {
+    color: #413F3F;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    cursor: pointer;
+  }
+  &__checkbox[type="checkbox"]:checked ~ &__span {
+    border: 1px solid #C4C4C4 !important;
+    background: #B5B5BA;
+  }
+}

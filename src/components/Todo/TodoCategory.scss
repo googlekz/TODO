@@ -1,0 +1,32 @@
+.category-title {
+  display: flex;
+  align-content: baseline;
+  gap: 13px;
+  cursor: pointer;
+  padding: 5px 0;
+  &__button-arrow {
+    border: none;
+    background: none;
+  }
+  &__line {
+    height: 1px;
+    border: none;
+    background: rgba(188, 188, 195, 0.44);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 100%;
+  }
+}
+
+.todo-category {
+  &__selects {
+    display: none;
+    gap: 15px;
+    &_active {
+      display: grid;
+      margin-top: 25px;
+    }
+  }
+}

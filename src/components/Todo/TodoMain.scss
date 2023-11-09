@@ -1,0 +1,14 @@
+.todo-main {
+  max-width: 400px;
+  margin: auto;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2), -5px -5px 10px rgba(0, 0, 0, 0.2);
+
+  &__content {
+    padding: 30px;
+    display: grid;
+    gap: 40px;
+  }
+  &__image {
+    display: flex;
+  }
+}
