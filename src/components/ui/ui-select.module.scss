@@ -1,11 +1,11 @@
-.ui-select {
+.uiSelect {
   display: flex;
   gap: 7px;
   cursor: pointer;
   &_active {
     text-decoration: line-through;
     text-decoration-color: #B5B5BA;
-    .ui-select__label {
+    .uiSelect__label {
       color: #B5B5BA;
     }
   }

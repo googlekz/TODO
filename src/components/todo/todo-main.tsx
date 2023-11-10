@@ -1,13 +1,13 @@
 import TodoCategory from "./todo-category.tsx";
-import './todo-main.scss';
+import styles from './todo-main.module.scss';
 import border from '../../assets/images/border.svg';
 import {CATEGORIES} from "../../core/constants/general";
 
 export default function TodoMain () {
     return (
-        <div className='todo-main'>
-            <img src={border} alt="border" className='todo-main__image'/>
-            <div className="todo-main__content">
+        <div className={styles.todoMain}>
+            <img src={border} alt="border" className={styles.todoMain__image}/>
+            <div className={styles.todoMain__content}>
                 {
                     CATEGORIES.map(item => (
                         <TodoCategory

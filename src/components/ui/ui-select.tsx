@@ -1,4 +1,4 @@
-import './ui-select.scss'
+import styles from './ui-select.module.scss'
 import {useState} from "react";
 import access from '../../assets/images/access.svg'
 
@@ -22,19 +22,26 @@ export default function UiSelect({item, id, changeItem, children}: IProps) {
         changeItem(item, !checkbox);
     }
 
+    /**
+     * Получение класса
+     */
+    const getClassName = () => {
+        return `${styles.uiSelect} ${checkbox ? styles.uiSelect_active : ''}`
+    }
+
     return (
-        <label htmlFor={`select${id}`} className={`ui-select${checkbox ? ' ui-select_active' : ''}`}>
+        <label htmlFor={`select${id}`} className={getClassName()}>
             <input
                 checked={checkbox}
-                className='ui-select__checkbox'
+                className={styles.uiSelect__checkbox}
                 type="checkbox"
                 id={`select${id}`}
                 onChange={setInputValue}
             />
-            <span className='ui-select__span'>
+            <span className={styles.uiSelect__span}>
                 <img src={access} alt="access" />
             </span>
-            <span className='ui-select__label'>{ children }</span>
+            <span className={styles.uiSelect__label}>{ children }</span>
         </label>
     )
 }

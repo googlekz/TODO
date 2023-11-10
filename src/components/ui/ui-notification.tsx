@@ -1,7 +1,7 @@
-import './ui-notification.scss'
+import styles from './ui-notification.module.scss'
 
 export default function UiNotification ({notification}: { notification: number}) {
     return (
-        <span className='notification'>{ notification }</span>
+        <span className={styles.notification}>{ notification }</span>
     )
 }

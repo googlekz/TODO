@@ -1,5 +1,5 @@
 import UiNotification from "../ui/ui-notification.tsx";
-import './todo-category.scss'
+import styles from './todo-category.module.scss';
 import {useMemo, useState, KeyboardEvent} from "react";
 import UiSelect from "../ui/ui-select.tsx";
 import UiInput from "../ui/ui-input.tsx";
@@ -11,11 +11,11 @@ import arrow from '../../assets/images/arrow.svg';
 
 function CategoryTitle({title, notification, toggleBlock}: ICategory) {
     return (
-        <div className='category-title' onClick={toggleBlock}>
+        <div className={styles.categoryTitle} onClick={toggleBlock}>
             <img src={folder} alt="Folder"/>
             <h4>{title}</h4>
-            <hr className="category-title__line"/>
-            <button className='category-title__button-arrow'>
+            <hr className={styles.categoryTitle__line}/>
+            <button className={styles.categoryTitle__buttonArrow}>
                 <img src={arrow} alt="arrow"/>
             </button>
             {
@@ -41,7 +41,11 @@ export default function TodoCategory({title, items}: ITitle) {
      * Получение классов
      */
     const getClassName = () => {
-        return showBlock ? `todo-category__selects_active` : '';
+        let result = `${styles.todoCategory__selects}`;
+        if (showBlock) {
+            result = `${result} ${styles.todoCategory__selects_active}`
+        }
+            return result
     }
 
     /**
@@ -82,13 +86,13 @@ export default function TodoCategory({title, items}: ITitle) {
     }
 
     return (
-        <div className='todo-category'>
+        <div className={styles.todoCategory}>
             <CategoryTitle
                 title={title}
                 notification={getNotification}
                 toggleBlock={() => setShowBlock(!showBlock)}
             />
-            <div className={`todo-category__selects ${getClassName()}`}>
+            <div className={getClassName()}>
                 {
                     stateItems.map(item => (
                         <UiSelect
