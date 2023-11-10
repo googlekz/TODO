@@ -1,3 +1,4 @@
+import './assets/styles/index.scss';
 import './App.scss';
 import TodoMain from "./components/todo/todo-main.tsx";
 
