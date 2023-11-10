@@ -1,4 +1,4 @@
-import './UiNotification.scss'
+import './ui-notification.scss'
 
 export default function UiNotification ({notification}: { notification: number}) {
     return (

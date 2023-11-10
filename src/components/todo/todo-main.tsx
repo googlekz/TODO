@@ -1,6 +1,6 @@
-import TodoCategory from "./TodoCategory";
-import './TodoMain.scss';
-import border from '../../assets/images/border.svg'
+import TodoCategory from "./todo-category.tsx";
+import './todo-main.scss';
+import border from '../../assets/images/border.svg';
 import {CATEGORIES} from "../../core/constants/general";
 
 export default function TodoMain () {

@@ -1,8 +1,7 @@
-import React from 'react';
+import {KeyboardEvent} from 'react';
+import './ui-input.scss';
 
-import './UiInput.scss';
-
-export default function UiInput ({addItem}: {addItem<T>(e: React.SyntheticEvent<T>): void}) {
+export default function UiInput ({addItem}: {addItem(e: KeyboardEvent): void}) {
     return (
         <div className='ui-input'>
             <span className="ui-input__span" />

@@ -1,12 +1,13 @@
-import UiNotification from "../Ui/UiNotification";
-import folder from '../../assets/images/folder.svg'
-import arrow from '../../assets/images/arrow.svg'
-import './TodoCategory.scss'
-import {useMemo, useState} from "react";
-import UiSelect from "../Ui/UiSelect";
-import UiInput from "../Ui/UiInput";
+import UiNotification from "../ui/ui-notification.tsx";
+import './todo-category.scss'
+import {useMemo, useState, KeyboardEvent} from "react";
+import UiSelect from "../ui/ui-select.tsx";
+import UiInput from "../ui/ui-input.tsx";
 
 import { ICategory, ITitle, IItem } from "../../core/interfaces/category";
+
+import folder from '../../assets/images/folder.svg';
+import arrow from '../../assets/images/arrow.svg';
 
 function CategoryTitle({title, notification, toggleBlock}: ICategory) {
     return (
@@ -24,7 +25,7 @@ function CategoryTitle({title, notification, toggleBlock}: ICategory) {
     )
 }
 
-export default function TodoCategory({title, notification, items}: ITitle) {
+export default function TodoCategory({title, items}: ITitle) {
     const [stateItems, setStateItems] = useState(items);
     const [showBlock, setShowBlock] = useState(false);
     const [generateId, setGenerateId] = useState(items.length ? items[items.length - 1].id : 0)
@@ -59,10 +60,10 @@ export default function TodoCategory({title, notification, items}: ITitle) {
      * Передача значения инпута при нажатии на enter
      * @param event
      */
-    const changeInput = (event: any) => {
+    const changeInput = (event: KeyboardEvent) => {
         if (event.key === 'Enter') {
-            addItem(event.target.value);
-            event.target.value = ''
+            addItem((event.target as HTMLInputElement).value);
+            (event.target as HTMLInputElement).value = ''
         }
     }
 
