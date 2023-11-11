@@ -1,10 +1,10 @@
-.category-title {
+.categoryTitle {
   display: flex;
   align-content: baseline;
   gap: 13px;
   cursor: pointer;
   padding: 5px 0;
-  &__button-arrow {
+  &__buttonArrow {
     border: none;
     background: none;
   }
@@ -20,7 +20,7 @@
   }
 }
 
-.todo-category {
+.todoCategory {
   &__selects {
     display: none;
     gap: 15px;

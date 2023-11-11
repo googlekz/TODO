@@ -1,6 +1,6 @@
-import React from 'react';
+import './assets/styles/index.scss';
 import './App.scss';
-import TodoMain from "./components/Todo/TodoMain";
+import TodoMain from "./components/todo/todo-main.tsx";
 
 function App() {
   return (

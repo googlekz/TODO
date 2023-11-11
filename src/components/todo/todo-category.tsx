@@ -1,20 +1,21 @@
-import UiNotification from "../Ui/UiNotification";
-import folder from '../../assets/images/folder.svg'
-import arrow from '../../assets/images/arrow.svg'
-import './TodoCategory.scss'
-import {useMemo, useState} from "react";
-import UiSelect from "../Ui/UiSelect";
-import UiInput from "../Ui/UiInput";
+import UiNotification from "../ui/ui-notification.tsx";
+import styles from './todo-category.module.scss';
+import {useMemo, useState, KeyboardEvent} from "react";
+import UiSelect from "../ui/ui-select.tsx";
+import UiInput from "../ui/ui-input.tsx";
 
 import { ICategory, ITitle, IItem } from "../../core/interfaces/category";
 
+import folder from '../../assets/images/folder.svg';
+import arrow from '../../assets/images/arrow.svg';
+
 function CategoryTitle({title, notification, toggleBlock}: ICategory) {
     return (
-        <div className='category-title' onClick={toggleBlock}>
+        <div className={styles.categoryTitle} onClick={toggleBlock}>
             <img src={folder} alt="Folder"/>
             <h4>{title}</h4>
-            <hr className="category-title__line"/>
-            <button className='category-title__button-arrow'>
+            <hr className={styles.categoryTitle__line}/>
+            <button className={styles.categoryTitle__buttonArrow}>
                 <img src={arrow} alt="arrow"/>
             </button>
             {
@@ -24,7 +25,7 @@ function CategoryTitle({title, notification, toggleBlock}: ICategory) {
     )
 }
 
-export default function TodoCategory({title, notification, items}: ITitle) {
+export default function TodoCategory({title, items}: ITitle) {
     const [stateItems, setStateItems] = useState(items);
     const [showBlock, setShowBlock] = useState(false);
     const [generateId, setGenerateId] = useState(items.length ? items[items.length - 1].id : 0)
@@ -40,7 +41,11 @@ export default function TodoCategory({title, notification, items}: ITitle) {
      * Получение классов
      */
     const getClassName = () => {
-        return showBlock ? `todo-category__selects_active` : '';
+        let result = `${styles.todoCategory__selects}`;
+        if (showBlock) {
+            result = `${result} ${styles.todoCategory__selects_active}`
+        }
+            return result
     }
 
     /**
@@ -59,10 +64,10 @@ export default function TodoCategory({title, notification, items}: ITitle) {
      * Передача значения инпута при нажатии на enter
      * @param event
      */
-    const changeInput = (event: any) => {
+    const changeInput = (event: KeyboardEvent) => {
         if (event.key === 'Enter') {
-            addItem(event.target.value);
-            event.target.value = ''
+            addItem((event.target as HTMLInputElement).value);
+            (event.target as HTMLInputElement).value = ''
         }
     }
 
@@ -81,13 +86,13 @@ export default function TodoCategory({title, notification, items}: ITitle) {
     }
 
     return (
-        <div className='todo-category'>
+        <div className={styles.todoCategory}>
             <CategoryTitle
                 title={title}
                 notification={getNotification}
                 toggleBlock={() => setShowBlock(!showBlock)}
             />
-            <div className={`todo-category__selects ${getClassName()}`}>
+            <div className={getClassName()}>
                 {
                     stateItems.map(item => (
                         <UiSelect

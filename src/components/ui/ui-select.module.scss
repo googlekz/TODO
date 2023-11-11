@@ -1,12 +1,12 @@
-.ui-select {
+.uiSelect {
   display: flex;
   gap: 7px;
   cursor: pointer;
   &_active {
     text-decoration: line-through;
-    text-decoration-color: #B5B5BA;
-    .ui-select__label {
-      color: #B5B5BA;
+    text-decoration-color: var(--color-gray-200);
+    .uiSelect__label {
+      color: var(--color-gray-200);
     }
   }
   &:hover {
@@ -28,7 +28,7 @@
     justify-content: center;
   }
   &__label {
-    color: #413F3F;
+    color: var(--color-gray-300);
     font-size: 15px;
     font-style: normal;
     font-weight: 400;
@@ -36,6 +36,6 @@
   }
   &__checkbox[type="checkbox"]:checked ~ &__span {
     border: 1px solid #C4C4C4 !important;
-    background: #B5B5BA;
+    background: var(--color-gray-200);
   }
 }
