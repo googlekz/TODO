@@ -16,6 +16,7 @@ export interface IItem {
 export interface ITitle extends IGeneralKeys {
     id: number,
     title: string,
+    userId: number,
     notification: number,
     items: IItem[]
 }

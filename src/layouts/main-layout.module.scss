@@ -1,0 +1,23 @@
+.mainLayout {
+  &__header {
+    padding: 10px 15px;
+    background: var(--color-gray-300);
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+  }
+  &__login {
+    color: white;
+  }
+  &__logout {
+    padding: 3px 5px;
+    border-radius: 3px;
+    border: none;
+    background: white;
+    color: var(--color-gray-300);
+  }
+  &__content {
+    padding: 50px;
+  }
+}

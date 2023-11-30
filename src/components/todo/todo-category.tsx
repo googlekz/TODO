@@ -4,10 +4,11 @@ import {useMemo, useState, KeyboardEvent} from "react";
 import UiSelect from "../ui/ui-select.tsx";
 import UiInput from "../ui/ui-input.tsx";
 
-import { ICategory, ITitle, IItem } from "../../core/interfaces/category";
+import { ICategory, ITitle, IItem } from "../../../core/models/category.ts";
 
 import folder from '../../assets/images/folder.svg';
 import arrow from '../../assets/images/arrow.svg';
+import TodoRepository from "../../../core/repository/TodoRepository.ts";
 
 function CategoryTitle({title, notification, toggleBlock}: ICategory) {
     return (
@@ -25,7 +26,11 @@ function CategoryTitle({title, notification, toggleBlock}: ICategory) {
     )
 }
 
-export default function TodoCategory({title, items}: ITitle) {
+interface ICategoryProps extends ITitle {
+    refreshGroup(): void;
+}
+
+export default function TodoCategory({title, items, id, refreshGroup}: ICategoryProps ) {
     const [stateItems, setStateItems] = useState(items);
     const [showBlock, setShowBlock] = useState(false);
     const [generateId, setGenerateId] = useState(items.length ? items[items.length - 1].id : 0)
@@ -60,13 +65,23 @@ export default function TodoCategory({title, items}: ITitle) {
         setStateItems(stateClone);
     }
 
+    const createItem = async (title: string, groupId: number) => {
+        return await TodoRepository.createItem({
+            title,
+            groupId,
+        })
+    }
+
     /**
      * Передача значения инпута при нажатии на enter
      * @param event
      */
-    const changeInput = (event: KeyboardEvent) => {
-        if (event.key === 'Enter') {
+    const changeInput = async (event: KeyboardEvent) => {
+        const targetValue = (event.target as HTMLInputElement).value;
+        if (event.key === 'Enter' && targetValue.length > 0) {
             addItem((event.target as HTMLInputElement).value);
+            await createItem(targetValue, id);
+            refreshGroup();
             (event.target as HTMLInputElement).value = ''
         }
     }

@@ -2,7 +2,7 @@ import styles from './ui-select.module.scss'
 import {useState} from "react";
 import access from '../../assets/images/access.svg'
 
-import { IItem } from "../../core/interfaces/category";
+import { IItem } from "../../../core/models/category.ts";
 
 interface IProps {
     item: IItem,
