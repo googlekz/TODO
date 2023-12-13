@@ -45,7 +45,9 @@ root.render(
         <Context.Provider value={{
             store
         }}>
-            <RouterProvider router={router} />
+            <div>
+                <RouterProvider router={router} />
+            </div>
         </Context.Provider>
     </React.StrictMode>
 );

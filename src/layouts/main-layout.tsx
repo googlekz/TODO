@@ -1,5 +1,5 @@
 import styles from './main-layout.module.scss'
-import {Children, useContext, useEffect} from "react";
+import {Children, useContext} from "react";
 import {Context} from "../main.tsx";
 import {observer} from "mobx-react-lite";
 import {useNavigate} from 'react-router-dom';
@@ -8,18 +8,15 @@ const MainLayout = ({children}: {children: React.ReactNode}) => {
     const {store} = useContext(Context)
     const navigate = useNavigate();
 
+    /**
+     * Выход из аккаунта
+     */
     const logoutClick = async () => {
         const logoutRes = await store.logout();
         if (logoutRes) {
             return navigate('/authorization');
         }
     }
-
-    useEffect(() => {
-        if (store.isInit && !store.isAuth) {
-            return navigate('/authorization');
-        }
-    }, [store.isInit])
 
     return (
         <div className={styles.mainLayout}>

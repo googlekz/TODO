@@ -1,28 +1,44 @@
 import TodoCategory from "./todo-category.tsx";
 import styles from './todo-main.module.scss';
 import border from '../../assets/images/border.svg';
-import {KeyboardEvent, useEffect, useState} from "react";
+import {KeyboardEvent, useContext, useEffect, useState} from "react";
 import TodoRepository from "../../../core/repository/TodoRepository.ts";
 import {ITitle} from "../../../core/models/category.ts";
 import MainLayout from "../../layouts/main-layout.tsx";
 import UiInput from "../ui/ui-input.tsx";
+import {Context} from "../../main.tsx";
+import {observer} from "mobx-react-lite";
 
-export default function TodoMain() {
+const TodoMain = () => {
     const [groups, setGroups] = useState<ITitle[]>([]);
 
-    const getTodos = () => {
-        TodoRepository.getTodos().then(res => {
+    /**
+     * Получение списка дел
+     */
+    const getTodos = async () => {
+        store.isLoading = true;
+        await TodoRepository.getTodos().then(res => {
             setGroups(res.data)
         })
+        store.isLoading = false;
     }
 
-    useEffect(() => {
-        return () => getTodos()
-    }, [])
+    const {store} = useContext(Context);
 
+    useEffect(() => {
+        if (store.isInit) {
+            getTodos()
+        }
+    }, [store.isInit])
+
+    /**
+     * Добавление дела
+     * @param event
+     */
     const addItem = async (event: KeyboardEvent) => {
         const targetValue = (event.target as HTMLInputElement).value;
         if (event.key === 'Enter' && targetValue.length > 0) {
+            store.isLoading = true;
             await TodoRepository.createGroup({
                 title: targetValue
             });
@@ -36,7 +52,7 @@ export default function TodoMain() {
             <div className={styles.todoMain}>
                 <img src={border} alt="border" className={styles.todoMain__image}/>
                 <div className={styles.todoMain__content}>
-                    <UiInput addItem={addItem} placeholder={'Новая группа'} />
+                    <UiInput addItem={addItem} placeholder={'Новая группа'}/>
                     {
                         groups.map(item => (
                             <TodoCategory
@@ -51,3 +67,5 @@ export default function TodoMain() {
         </MainLayout>
     )
 }
+
+export default observer(TodoMain);

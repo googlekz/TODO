@@ -13,6 +13,11 @@ interface ITodo {
     groupId: number;
 }
 
+export interface ITodoPayload extends ITodo {
+    id: number;
+    isDone: boolean
+}
+
 export default class TodoRepository {
     static async getTodos (): Promise<AxiosResponse<ITitle[]>> {
         return $api.get('/todo/groups')
@@ -24,5 +29,9 @@ export default class TodoRepository {
 
     static async createItem (payload: ITodo): Promise<AxiosResponse> {
         return $api.post('/todo/item', payload);
+    }
+
+    static async updateItem (payload: ITodoPayload): Promise<AxiosResponse> {
+        return $api.put(`/todo/item/${payload.id}`, payload)
     }
 }

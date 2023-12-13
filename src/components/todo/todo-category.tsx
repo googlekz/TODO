@@ -1,14 +1,16 @@
 import UiNotification from "../ui/ui-notification.tsx";
 import styles from './todo-category.module.scss';
-import {useMemo, useState, KeyboardEvent} from "react";
+import {useMemo, useState, KeyboardEvent, useContext} from "react";
 import UiSelect from "../ui/ui-select.tsx";
 import UiInput from "../ui/ui-input.tsx";
+import { observer } from "mobx-react-lite";
 
-import { ICategory, ITitle, IItem } from "../../../core/models/category.ts";
+import { ICategory, ITitle } from "../../../core/models/category.ts";
 
 import folder from '../../assets/images/folder.svg';
 import arrow from '../../assets/images/arrow.svg';
-import TodoRepository from "../../../core/repository/TodoRepository.ts";
+import TodoRepository, {ITodoPayload} from "../../../core/repository/TodoRepository.ts";
+import {Context} from "../../main.tsx";
 
 function CategoryTitle({title, notification, toggleBlock}: ICategory) {
     return (
@@ -30,10 +32,11 @@ interface ICategoryProps extends ITitle {
     refreshGroup(): void;
 }
 
-export default function TodoCategory({title, items, id, refreshGroup}: ICategoryProps ) {
+const TodoCategory = ({title, items, id, refreshGroup}: ICategoryProps ) => {
     const [stateItems, setStateItems] = useState(items);
     const [showBlock, setShowBlock] = useState(false);
     const [generateId, setGenerateId] = useState(items.length ? items[items.length - 1].id : 0)
+    const {store} = useContext(Context);
 
     /**
      * Получение уведомлений
@@ -54,17 +57,25 @@ export default function TodoCategory({title, items, id, refreshGroup}: ICategory
     }
 
     /**
-     * Изменение статуса дела (закончен/в процессе)
+     * Изменения статуса todo item
      * @param changedItem
      * @param checked
      */
-    const changeItemStatus = (changedItem: IItem, checked: boolean) => {
+    const changeItemStatus = async (changedItem: ITodoPayload, checked: boolean) => {
+        store.isLoading = true;
         const index = stateItems.findIndex(item => item.id === changedItem.id);
         const stateClone = [...stateItems];
         stateClone.splice(index, 1, {...changedItem, isDone: checked});
         setStateItems(stateClone);
+        await TodoRepository.updateItem({...changedItem, isDone: checked})
+        store.isLoading = false;
     }
 
+    /**
+     * Создание item
+     * @param title
+     * @param groupId
+     */
     const createItem = async (title: string, groupId: number) => {
         return await TodoRepository.createItem({
             title,
@@ -125,3 +136,5 @@ export default function TodoCategory({title, items, id, refreshGroup}: ICategory
         </div>
     )
 }
+
+export default observer(TodoCategory);

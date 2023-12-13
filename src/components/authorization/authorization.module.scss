@@ -1,0 +1,23 @@
+.authorization {
+  padding: 50px;
+  max-width: 400px;
+  margin: 50px auto;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 3px;
+
+  &__title {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  &__input {
+    margin-bottom: 25px;
+  }
+  &__navigation {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__error {
+    display: block;
+    margin-bottom: 15px;
+  }
+}
