@@ -42,7 +42,7 @@ const TodoMain = () => {
             await TodoRepository.createGroup({
                 title: targetValue
             });
-            getTodos();
+            await getTodos();
             (event.target as HTMLInputElement).value = ''
         }
     }

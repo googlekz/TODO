@@ -1,7 +1,8 @@
 import UiInputTodo from "./todo/ui-input-todo.tsx";
 import UiInputRegistration from "./registration/ui-input-registration.tsx";
+import {IInputProps} from "../../../../core/models/ui.ts";
 
-const UiInput = (props: any) => {
+const UiInput = (props: IInputProps) => {
     const getElement = () => {
         switch (props.custom) {
             case 'registration': {

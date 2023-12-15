@@ -1,6 +1,7 @@
 import styles from './ui-input-registration.module.scss';
+import {IInputProps} from "../../../../../core/models/ui.ts";
 
-const UiInputRegistration = (props) => {
+const UiInputRegistration = (props: IInputProps) => {
     return (
         <>
             <input

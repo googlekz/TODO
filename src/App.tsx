@@ -14,7 +14,7 @@ function App() {
     useEffect(() => {
         if (localStorage.getItem('token')) {
             store.checkAuth().then(() => {
-                store.setInit(!store.isInit);
+                store.isInit = !store.isInit;
             });
             return;
         }

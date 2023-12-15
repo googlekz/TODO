@@ -1,12 +1,7 @@
-import {KeyboardEvent} from 'react';
 import styles from './ui-input-todo.module.scss';
+import {IInputProps} from "../../../../../core/models/ui.ts";
 
-interface IInput {
-    addItem(e: KeyboardEvent): void,
-    placeholder?: string
-}
-
-export default function UiInputTodo ({addItem, placeholder}: IInput) {
+export default function UiInputTodo ({addItem, placeholder}: IInputProps) {
     return (
         <div className={styles.uiInput}>
             <span className={styles.uiInput__span} />
