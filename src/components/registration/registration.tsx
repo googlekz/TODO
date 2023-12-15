@@ -53,8 +53,8 @@ const Registration = () => {
     /**
      * Отключеине кнопки при ошибках или разных паролях
      */
-    const isDisabled = useMemo(() => {
-        return !login || !password || store.errors.length > 0 || isEqualPassword();
+    const isDisabled = useMemo<boolean>(() => {
+        return !!(!login || !password || store.errors.length > 0 || isEqualPassword());
     }, [login, password, store.errors]);
 
     /**
@@ -81,7 +81,7 @@ const Registration = () => {
     return (
         <>
             {store.isLoading && <Loader/>}
-            <div className={styles.registration}>
+            <div className={styles.registration}>isDisabled
                 <h1 className={styles.registration__title}>Регистрация</h1>
                 <UiInput
                     className={styles.registration__input}
@@ -113,8 +113,15 @@ const Registration = () => {
                     >{getError() || isEqualPassword()}</UiError>
                 }
                 <div className={styles.registration__navigation}>
-                    <ButtonMain custom={'additional'} onClick={directAuth}>Войти</ButtonMain>
-                    <ButtonMain onClick={registration} disabled={isDisabled}>Зарегистрироваться</ButtonMain>
+                    <ButtonMain
+                        custom={'additional'}
+                        onClick={directAuth}
+                    >Войти</ButtonMain>
+                    <ButtonMain
+                        custom={'active'}
+                        onClick={registration}
+                        disabled={isDisabled}
+                    >Зарегистрироваться</ButtonMain>
                 </div>
             </div>
         </>

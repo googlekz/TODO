@@ -1,10 +1,10 @@
 import styles from './main-layout.module.scss'
-import {Children, useContext} from "react";
+import {Children, useContext, ReactNode} from "react";
 import {Context} from "../main.tsx";
 import {observer} from "mobx-react-lite";
 import {useNavigate} from 'react-router-dom';
 
-const MainLayout = ({children}: {children: React.ReactNode}) => {
+const MainLayout = ({children}: {children: ReactNode}) => {
     const {store} = useContext(Context)
     const navigate = useNavigate();
 

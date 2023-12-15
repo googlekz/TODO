@@ -1,14 +1,21 @@
 import {makeAutoObservable} from "mobx";
 import AuthRepository from "../../core/repository/AuthRepository.ts";
-import axios from "axios";
-import {API_URL} from "../../core/repository/http/index.js";
+import axios, {AxiosError} from "axios";
+import { API_URL } from "../../core/repository/http";
+
+interface ILoginPayload {
+    login: string
+    password: string
+}
+
+type TErrors = AxiosError<{ errors: string[] }>
 
 export default class Auth {
-    login = null;
+    login = '';
     isAuth = false;
     isLoading = false;
     isInit = false;
-    errors = [];
+    errors: string[] = [];
 
     constructor() {
         makeAutoObservable(this)
@@ -20,21 +27,20 @@ export default class Auth {
      * @param password
      * @returns {Promise<string[]>}
      */
-    async doLogin({login, password}) {
+    async doLogin({login, password}: ILoginPayload) {
         try {
             this.isLoading = true;
             const {data} = await AuthRepository.loginAuth(login, password)
             localStorage.setItem('token', data.accessToken);
             this.isAuth = true;
-            this.login(login);
+            this.login = login;
         } catch (e) {
-            const errors = e.response?.data?.errors;
-            console.log(errors || e);
+            const errors = (e as TErrors).response?.data?.errors;
             if (errors) {
                 this.errors = errors;
                 return;
             }
-            return this.errors = ['Произошла ошибка'];
+            this.errors = ['Произошла ошибка'];
         } finally {
             this.isLoading = false
         }
@@ -46,7 +52,7 @@ export default class Auth {
      * @param password
      * @returns {Promise<string[]>}
      */
-    async registration({login, password}) {
+    async registration({login, password}: ILoginPayload) {
         try {
             this.isLoading = true;
             const {data} = await AuthRepository.registration(login, password)
@@ -54,10 +60,8 @@ export default class Auth {
             this.isAuth = true;
             this.login = login;
         } catch (e) {
-            const errors = e.response?.data?.errors;
-            console.log(errors || e);
+            const errors = (e as TErrors).response?.data?.errors;
             if (errors) {
-                console.log('errors: ', errors);
                 this.errors = errors;
                 return;
             }

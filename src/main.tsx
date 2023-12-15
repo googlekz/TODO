@@ -1,9 +1,7 @@
 import React, {createContext} from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-import Auth from "./store/auth.js";
+import Auth from "./store/auth.ts";
 import {
     createBrowserRouter,
     RouterProvider,

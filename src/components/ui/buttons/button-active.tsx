@@ -5,7 +5,8 @@ const ButtonActive = (props: IButtonProps) => {
     return (
         <button
             className={styles.buttonActive}
-            {...props}
+            onClick={props.onClick}
+            disabled={props.disabled}
         >{ props.children }</button>
     );
 };

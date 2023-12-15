@@ -76,10 +76,17 @@ const Authorization = () => {
                     >{store.errors[0]}</UiError>
                 }
                 <div className={style.authorization__navigation}>
-                    <ButtonMain custom={'additional'} onClick={() => navigate('/registration')}>
+                    <ButtonMain
+                        custom={'additional'}
+                        onClick={() => navigate('/registration')}
+                    >
                         Зарегистрироваться
                     </ButtonMain>
-                    <ButtonMain onClick={doLogin} disabled={isDisabled}>
+                    <ButtonMain
+                        custom={'active'}
+                        onClick={doLogin}
+                        disabled={isDisabled}
+                    >
                         Войти
                     </ButtonMain>
                 </div>
