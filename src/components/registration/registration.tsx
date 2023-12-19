@@ -1,4 +1,4 @@
-import {useContext, useMemo, useState} from "react";
+import {useContext, useMemo, useState, ChangeEvent} from "react";
 import {Context} from "../../main.tsx";
 import {useNavigate} from "react-router-dom";
 import styles from './registration.module.scss';
@@ -62,14 +62,14 @@ const Registration = () => {
      * @param e
      * @param type
      */
-    const changeValue = (e: Event, type: string) => {
+    const changeValue = (e: ChangeEvent<HTMLInputElement>, type: string) => {
         store.errors = [];
         if (type === 'login') {
-            setLogin((e.target as HTMLInputElement).value);
+            setLogin(e.target.value);
             return;
         }
         if (type === 'password') {
-            setPassword((e.target as HTMLInputElement).value);
+            setPassword(e.target.value);
             return;
         }
         if (type === 'repeatPassword') {
@@ -88,7 +88,7 @@ const Registration = () => {
                     custom={'registration'}
                     placeholder={'Логин'}
                     value={login}
-                    onChange={(e: Event) => changeValue(e, 'login')}
+                    onChange={(e) => changeValue(e, 'login')}
                 />
                 <UiInput
                     className={styles.registration__input}
@@ -96,7 +96,7 @@ const Registration = () => {
                     placeholder={'Пароль'}
                     value={password}
                     type='password'
-                    onChange={(e: Event) => changeValue(e, 'password')}
+                    onChange={(e) => changeValue(e, 'password')}
                 />
                 <UiInput
                     className={styles.registration__input}
@@ -104,7 +104,7 @@ const Registration = () => {
                     type='password'
                     placeholder={'Повторите пароль'}
                     value={repeatPassword}
-                    onChange={(e: Event) => changeValue(e, 'repeatPassword')}
+                    onChange={(e) => changeValue(e, 'repeatPassword')}
                 />
                 {
                     (store.errors.length > 0 || isEqualPassword()) &&

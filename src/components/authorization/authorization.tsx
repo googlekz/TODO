@@ -1,4 +1,4 @@
-import {useContext, useMemo, useState} from "react";
+import {ChangeEvent, useContext, useMemo, useState} from "react";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../main.tsx";
 import {useNavigate} from "react-router-dom";
@@ -37,14 +37,14 @@ const Authorization = () => {
      * @param e
      * @param type
      */
-    const changeValue = (e: Event, type: string) => {
+    const changeValue = (e: ChangeEvent<HTMLInputElement>, type: string) => {
         store.errors = [];
         if (type === 'login') {
-            setLogin((e.target as HTMLInputElement).value);
+            setLogin(e.target.value);
             return;
         }
         if (type === 'password') {
-            setPassword((e.target as HTMLInputElement).value);
+            setPassword(e.target.value);
             return;
         }
     }
@@ -59,7 +59,7 @@ const Authorization = () => {
                     custom={'registration'}
                     placeholder={'Логин'}
                     value={login}
-                    onChange={(e: Event) => changeValue(e, 'login')}
+                    onChange={(e) => changeValue(e, 'login')}
                 />
                 <UiInput
                     className={style.authorization__input}
@@ -67,7 +67,7 @@ const Authorization = () => {
                     placeholder={'Пароль'}
                     type={'password'}
                     value={password}
-                    onChange={(e: Event) => changeValue(e, 'password')}
+                    onChange={(e) => changeValue(e, 'password')}
                 />
                 {
                     store.errors.length > 0 &&
