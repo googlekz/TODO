@@ -81,7 +81,7 @@ const Registration = () => {
     return (
         <>
             {store.isLoading && <Loader/>}
-            <div className={styles.registration}>isDisabled
+            <div className={styles.registration}>
                 <h1 className={styles.registration__title}>Регистрация</h1>
                 <UiInput
                     className={styles.registration__input}

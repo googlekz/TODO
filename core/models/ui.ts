@@ -1,4 +1,4 @@
-import {ChangeEventHandler, MouseEventHandler, ReactNode} from "react";
+import {MouseEventHandler, ReactNode, KeyboardEvent} from "react";
 
 export interface IButtonProps {
     custom: 'additional' | 'active'
@@ -8,10 +8,11 @@ export interface IButtonProps {
 }
 
 export interface IInputProps {
-    custom: 'registration'
+    custom: 'registration' | 'todo'
     type?: 'password'
-    value: string
+    value?: string
     className?: string
-    onChange: ChangeEventHandler<HTMLInputElement>
+    onChange?: (e: Event) => void
     placeholder?: string
+    addItem?: (event: KeyboardEvent) => Promise<void>
 }

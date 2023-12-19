@@ -6,7 +6,8 @@ const UiInputRegistration = (props: IInputProps) => {
         <>
             <input
                 type={props.type ? props.type : 'text'}
-                value={props.type}
+                value={props.value}
+                placeholder={props.placeholder}
                 onChange={props.onChange}
                 className={props.className ? `${styles.uiRegistration} ${props.className}` : styles.uiRegistration}
             />

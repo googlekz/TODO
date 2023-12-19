@@ -2,7 +2,7 @@ import UiNotification from "../ui/ui-notification.tsx";
 import styles from './todo-category.module.scss';
 import {useMemo, useState, KeyboardEvent, useContext} from "react";
 import UiSelect from "../ui/ui-select.tsx";
-import UiInput from "../ui/ui-input.tsx";
+import UiInput from "../ui/inputs/ui-input.tsx";
 import { observer } from "mobx-react-lite";
 
 import { ICategory, ITitle } from "../../../core/models/category.ts";
@@ -131,7 +131,10 @@ const TodoCategory = ({title, items, id, refreshGroup}: ICategoryProps ) => {
                         </UiSelect>
                     ))
                 }
-                <UiInput addItem={changeInput}/>
+                <UiInput
+                    custom={'todo'}
+                    addItem={changeInput}
+                />
             </div>
         </div>
     )

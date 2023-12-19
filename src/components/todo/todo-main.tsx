@@ -5,7 +5,7 @@ import {KeyboardEvent, useContext, useEffect, useState} from "react";
 import TodoRepository from "../../../core/repository/TodoRepository.ts";
 import {ITitle} from "../../../core/models/category.ts";
 import MainLayout from "../../layouts/main-layout.tsx";
-import UiInput from "../ui/ui-input.tsx";
+import UiInput from "../ui/inputs/ui-input.tsx";
 import {Context} from "../../main.tsx";
 import {observer} from "mobx-react-lite";
 
@@ -52,7 +52,11 @@ const TodoMain = () => {
             <div className={styles.todoMain}>
                 <img src={border} alt="border" className={styles.todoMain__image}/>
                 <div className={styles.todoMain__content}>
-                    <UiInput addItem={addItem} placeholder={'Новая группа'}/>
+                    <UiInput
+                        custom={'todo'}
+                        addItem={addItem}
+                        placeholder={'Новая группа'}
+                    />
                     {
                         groups.map(item => (
                             <TodoCategory
